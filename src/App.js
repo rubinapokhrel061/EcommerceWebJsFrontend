@@ -20,16 +20,22 @@ import Products from "./Pages/admin/Products";
 import UpdateProduct from "./Pages/admin/UpdateProduct";
 import Search from "./Pages/Search";
 import ProductDetails from "./Pages/ProductDetails";
+import AllCategories from "./Pages/AllCategories";
+import CategoryProduct from "./Pages/CategoryProduct";
 
 const App = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/category" element={<Category />} /> */}
+
+        <Route path="/categories" element={<AllCategories />} />
+        <Route path="/category/:slug" element={<CategoryProduct />} />
+
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="user" element={<Dashboard />} />
           <Route path="user/profile" element={<Profile />} />
+
           <Route path="user/orders" element={<Order />} />
         </Route>
         <Route path="/dashboard" element={<AdminRoute />}>

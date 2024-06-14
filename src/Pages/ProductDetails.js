@@ -57,6 +57,7 @@ const ProductDetails = () => {
         </div>
       </div>
       <div>
+        similar product
         <div className="flex gap-3">
           {relatedProducts?.map((p) => (
             <div
