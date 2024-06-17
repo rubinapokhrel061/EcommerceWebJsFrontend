@@ -4,12 +4,15 @@ import { useAuth } from "../../Context/Auth";
 import toast from "react-hot-toast";
 import SearchInput from "../Form/SearchInput";
 import useCategory from "../../Hooks/UseCategory";
+import { useCart } from "../../Context/Cart";
+import { Badge } from "antd";
 
 const Nav = () => {
   const [auth, setauth] = useAuth();
   const [display, setDisplay] = useState("none");
   const [show, setShow] = useState(false);
   const categories = useCategory();
+  const [cart] = useCart();
   console.log(categories);
   const handledisplay = () => {
     setDisplay((prevDisplay) => (prevDisplay === "none" ? "block" : "none"));
@@ -245,12 +248,14 @@ const Nav = () => {
             )}
 
             <li>
-              <Link
-                to="/cart"
-                className="focus:boder focus:border-b-2 focus:border-black"
-              >
-                CART
-              </Link>
+              <Badge count={cart?.length} showZero className="p-2">
+                <Link
+                  to="/cart"
+                  className="focus:boder focus:border-b-2 mt-1 focus:border-black"
+                >
+                  CART
+                </Link>
+              </Badge>
             </li>
           </ul>
         </div>

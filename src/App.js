@@ -22,6 +22,7 @@ import Search from "./Pages/Search";
 import ProductDetails from "./Pages/ProductDetails";
 import AllCategories from "./Pages/AllCategories";
 import CategoryProduct from "./Pages/CategoryProduct";
+import CartPage from "./Pages/CartPage";
 
 const App = () => {
   return (
@@ -47,7 +48,7 @@ const App = () => {
           <Route path="admin/products" element={<Products />} />
           <Route path="admin/users" element={<Users />} />
         </Route>
-        {/* <Route path="/cart" element={<Cart />} /> */}
+        <Route path="/cart" element={<CartPage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
