@@ -68,122 +68,129 @@ const CreateProduct = () => {
   console.log(photo);
   return (
     <Layout>
-      <div className="flex gap-10 p-3 w-[90%] mx-auto ">
-        <div className="w-[20%]">
+      <div className="flex flex-col md:flex md:flex-row md:justify-center gap-10  p-3 w-[90%] min-h-screen mx-auto">
+        <div className="w-full md:w-[40%]">
           <AdminMenu />
         </div>
-
-        <div className="w-[60%] mx-auto">
-          <div>
-            <Select
-              placeholder="Select a category"
-              size="large"
-              showSearch
-              className="w-full "
-              onChange={(value) => {
-                setCategory(value);
-              }}
-            >
-              {categories?.map((c) => (
-                <Option key={c._id} value={c._id}>
-                  {c.name}
-                </Option>
-              ))}
-            </Select>
-          </div>
-          <div className="w-[100%] mt-5 text-center bg-gray-50 border  py-2 border-gray-300 text-gray-900 rounded-lg cursor-pointer">
-            <label className=" text-sm   ">
-              {photo ? photo.name : "Upload Photo"}
-              <input
-                type="file"
-                name="photo"
-                accept="image/*"
-                onChange={(e) => setPhoto(e.target.files[0])}
-                hidden
-              />
-            </label>
-          </div>
-          <div>
-            {photo && (
-              <div className="mt-4 items-center ">
-                <img
-                  src={URL.createObjectURL(photo)}
-                  alt={photo.name}
-                  height={"200px"}
-                  width={"200px"}
-                />
+        <div className="my-10 w-[100%] rounded ">
+          <div className="w-full bg-white p-6 rounded-lg shadow shadow-green-700  md:mt-0  ">
+            <div className="space-y-2 md:space-y-4 p-4">
+              <div>
+                <Select
+                  placeholder="Select a category"
+                  size="large"
+                  showSearch
+                  className="w-full border border-[#4ADE80] rounded-lg "
+                  onChange={(value) => {
+                    setCategory(value);
+                  }}
+                >
+                  {categories?.map((c) => (
+                    <Option key={c._id} value={c._id}>
+                      {c.name}
+                    </Option>
+                  ))}
+                </Select>
               </div>
-            )}
-          </div>
-          <div className="mt-5">
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-              className="bg-gray-50 mt-5 border border-gray-300  sm:text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 "
-              placeholder="Enter your name"
-              required
-            />
-            <input
-              type="text"
-              name="description"
-              value={description}
-              onChange={(e) => {
-                setDescription(e.target.value);
-              }}
-              className="bg-gray-50 mt-5 border border-gray-300  sm:text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 "
-              placeholder="Enter your description"
-              required
-            />
-            <input
-              type="number"
-              name="quantity"
-              value={quantity}
-              onChange={(e) => {
-                setQuantity(e.target.value);
-              }}
-              className="bg-gray-50 mt-5 border border-gray-300 sm:text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 "
-              placeholder="Enter your quantity"
-              required
-            />
-            <input
-              type="number"
-              name="price"
-              value={price}
-              onChange={(e) => {
-                setPrice(e.target.value);
-              }}
-              className="bg-gray-50 mt-5 border border-gray-300 sm:text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 "
-              placeholder="Enter your price"
-              required
-            />
+              <div className="w-[100%] mt-5 text-center  text-gray-900  cursor-pointer py-2">
+                <label className=" text-sm ">
+                  <span className=" text-sm font-bold">
+                    {" "}
+                    {photo ? photo.name : "Upload Photo"}
+                  </span>
+                  <input
+                    type="file"
+                    name="photo"
+                    accept="image/*"
+                    className="border border-[#4ADE80] outline-none text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
+                    onChange={(e) => setPhoto(e.target.files[0])}
+                    hidden
+                  />
+                </label>
+              </div>
+              <div>
+                {photo && (
+                  <div className="mt-4 items-center ">
+                    <img
+                      src={URL.createObjectURL(photo)}
+                      alt={photo.name}
+                      height={"200px"}
+                      width={"200px"}
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="mt-5 space-y-2 md:space-y-4">
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                  className="border border-[#4ADE80] outline-none text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
+                  placeholder="Enter Product Name"
+                  required
+                />
+                <input
+                  type="text"
+                  name="description"
+                  value={description}
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                  className="border border-[#4ADE80] outline-none text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
+                  placeholder="Enter your description"
+                  required
+                />
+                <input
+                  type="number"
+                  name="quantity"
+                  value={quantity}
+                  onChange={(e) => {
+                    setQuantity(e.target.value);
+                  }}
+                  className="border border-[#4ADE80] outline-none text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
+                  placeholder="Enter your quantity"
+                  required
+                />
+                <input
+                  type="number"
+                  name="price"
+                  value={price}
+                  onChange={(e) => {
+                    setPrice(e.target.value);
+                  }}
+                  className="border border-[#4ADE80] outline-none text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
+                  placeholder="Enter your price"
+                  required
+                />
 
-            <Select
-              placeholder="Select Shipping "
-              size="large"
-              showSearch
-              className="w-full"
-              onChange={(value) => {
-                setShipping(value);
-              }}
-            >
-              <Option value="0">No</Option>
-              <Option value="1">Yes</Option>
-            </Select>
+                <Select
+                  placeholder="Select Shipping "
+                  size="large"
+                  showSearch
+                  className="w-full border border-[#4ADE80] rounded-lg"
+                  onChange={(value) => {
+                    setShipping(value);
+                  }}
+                >
+                  <Option value="0">No</Option>
+                  <Option value="1">Yes</Option>
+                </Select>
 
-            <div className="mb-3">
-              <button
-                className="bg-gray-50 mt-5 border border-gray-300 sm:text-sm rounded-lg focus:border-blue-500 block w-full "
-                onClick={handleCreate}
-              >
-                CREATE PRODUCT
-              </button>
+                <div className="mb-3">
+                  <button
+                    className="w-full bg-[#4ADE80] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                    onClick={handleCreate}
+                  >
+                    CREATE PRODUCT
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </div>{" "}
+        </div>{" "}
       </div>
     </Layout>
   );

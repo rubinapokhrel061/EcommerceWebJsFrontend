@@ -4,7 +4,7 @@ import Layout from "../Components/layout/Layout";
 const About = () => {
   return (
     <Layout>
-      <div>About</div>
+      <div className="min-h-screen">About</div>
     </Layout>
   );
 };

@@ -4,7 +4,7 @@ import Layout from "../Components/layout/Layout";
 const PrivacyPolicy = () => {
   return (
     <Layout>
-      <div>PrivacyPolicy</div>
+      <div className="min-h-screen">PrivacyPolicy</div>
     </Layout>
   );
 };

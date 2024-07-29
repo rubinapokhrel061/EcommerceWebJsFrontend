@@ -7,15 +7,15 @@ const Search = () => {
   const [value] = useSearch();
   return (
     <Layout>
-      <div>
-        <h1>Search Results</h1>
+      <div className="min-h-screen">
+        {/* <h1>Search Results</h1>  
         <h6>
           {value?.results.length < 1
             ? "No Product Found"
             : value?.results.length}
-        </h6>
+        </h6> */}
 
-        <div className="flex gap-3">
+        <div className="flex flex-wrap w-[90%] mx-auto my-4 gap-3">
           {value?.results.map((p) => (
             <div
               className=" mb-6 rounded-lg w-80  bg-white p-6 mx-auto shadow-md "

@@ -92,12 +92,12 @@ const CreateCategory = () => {
   };
   return (
     <Layout>
-      <div className="flex gap-10 p-3 w-[90%] mx-auto">
-        <div className="w-[30%]">
+      <div className="flex flex-col md:flex md:flex-row md:justify-center gap-10  p-3 w-[90%] min-h-screen mx-auto">
+        <div className="w-full md:w-[40%]">
           <AdminMenu />
         </div>
 
-        <div className="text-gray-900 w-[75%]  bg-gray-200">
+        <div className="my-10 w-[100%] border rounded p-4 border-gray-200">
           <div className="p-4 m-1  text-xl font-semibold">
             <h1 className="mb-5">Manage Category</h1>
             <div>

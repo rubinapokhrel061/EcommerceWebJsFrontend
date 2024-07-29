@@ -5,11 +5,13 @@ import Layout from "../../Components/layout/Layout";
 const Users = () => {
   return (
     <Layout>
-      <div className="flex gap-10 p-3 w-[90%] mx-auto">
-        <div className="w-[40%]">
+      <div className="flex flex-col md:flex md:flex-row md:justify-center gap-10  p-3 w-[90%] min-h-screen mx-auto">
+        <div className="w-full md:w-[40%]">
           <AdminMenu />
         </div>
-        <div>user</div>
+        <div className="my-10 w-[100%] border rounded border-gray-200 p-4">
+          user
+        </div>
       </div>
     </Layout>
   );

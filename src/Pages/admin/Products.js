@@ -25,37 +25,37 @@ const Products = () => {
 
   return (
     <Layout>
-      <div className="flex gap-10 p-3 w-[90%] mx-auto">
-        <div className="w-[40%]">
+      <div className="flex flex-col md:flex md:flex-row md:justify-center gap-10  p-3 w-[90%] min-h-screen mx-auto">
+        <div className="w-full md:w-[40%]">
           <AdminMenu />
         </div>
-        <div className="mt-16">
-          {/* start */} products
-          {products?.map((p) => (
-            <Link key={p._id} to={`/dashboard/admin/products/${p.slug}`}>
-              <div className=" mb-6 rounded-lg bg-white p-6 mx-auto shadow-md ">
-                <div className="items-centers mx-auto">
-                  <img
-                    alt={p.name}
-                    src={`${backendUrl}/product/get-product-photo/${p._id}`}
-                  />
-                </div>
+        <div className="my-10 w-[100%] border rounded border-gray-200 p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-4">
+            {products?.map((p) => (
+              <Link key={p._id} to={`/dashboard/admin/products/${p.slug}`}>
+                <div className=" mb-6 rounded-lg bg-white p-6 mx-auto shadow-md ">
+                  <div className="items-centers mx-auto">
+                    <img
+                      alt={p.name}
+                      src={`${backendUrl}/product/get-product-photo/${p._id}`}
+                    />
+                  </div>
 
-                <div>
-                  <div className="mt-5 sm:mt-0">
-                    <h2 className="text-lg font-bold text-gray-900">
-                      {p.name}
-                    </h2>
-                    <p className="mt-1 text-xs text-gray-700">{p.price}</p>
-                    <p className="mt-1 text-xs text-gray-700">
-                      {p.description}
-                    </p>
+                  <div>
+                    <div className="mt-5 sm:mt-0">
+                      <h2 className="text-lg font-bold text-gray-900">
+                        {p.name}
+                      </h2>
+                      <p className="mt-1 text-xs text-gray-700">Rs.{p.price}</p>
+                      <p className="mt-1 text-xs text-gray-700">
+                        {p.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))}
-          {/* end */}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </Layout>

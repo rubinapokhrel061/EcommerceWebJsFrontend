@@ -4,7 +4,7 @@ import Layout from "../Components/layout/Layout";
 const Contact = () => {
   return (
     <Layout>
-      <div>contact</div>
+      <div className="min-h-screen">contact</div>
     </Layout>
   );
 };

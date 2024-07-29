@@ -3,26 +3,26 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className=" bg-[#D1D1c7] text-center w-[100%] py-2">
+    <div className=" bg-green-500 text-center w-[100%] py-3">
       <h3>All Right Reserved &copy</h3>
       <div className=" flex gap-3 justify-center">
         <Link
           to="/about"
-          className=" focus:boder  focus:border-b-2 focus:border-black"
+          className=" focus:boder  focus:border-b-2 focus:border-blue-800 font-bold hover:text-blue-800 focus:text-blue-800"
         >
           About
         </Link>
         |
         <Link
           to="/contact"
-          className=" focus:boder focus:border-b-2 focus:border-black"
+          className=" focus:boder focus:border-b-2 focus:border-blue-800 font-bold hover:text-blue-800 focus:text-blue-800"
         >
           Contact
         </Link>
         |
         <Link
           to="/policy"
-          className=" focus:boder focus:border-b-2 focus:border-black"
+          className=" focus:boder focus:border-b-2 focus:border-blue-800 font-bold hover:text-blue-800 focus:text-blue-800"
         >
           Privacy Policy
         </Link>

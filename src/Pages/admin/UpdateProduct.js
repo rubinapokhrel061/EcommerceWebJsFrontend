@@ -107,128 +107,135 @@ const UpdateProduct = () => {
 
   return (
     <Layout>
-      <div className="flex gap-10 p-3 w-[90%] mx-auto ">
-        <div className="w-[20%]">
+      <div className="flex flex-col md:flex md:flex-row md:justify-center gap-10  p-3 w-[90%] min-h-screen mx-auto ">
+        <div className="w-full md:w-[40%]">
           <AdminMenu />
         </div>
-        <div className="w-[60%] mx-auto">
-          <h1>Update Product</h1>
-          <div>
-            <Select
-              placeholder="Select a category"
-              size="large"
-              showSearch
-              className="w-full "
-              onChange={(value) => {
-                setCategory(value);
-              }}
-              value={category}
-            >
-              {categories?.map((c) => (
-                <Option key={c._id} value={c._id}>
-                  {c.name}
-                </Option>
-              ))}
-            </Select>
-            <div className="w-[100%] mt-5 text-center bg-gray-50 border  py-2 border-gray-300 text-gray-900 rounded-lg cursor-pointer">
-              <label className=" text-sm ">
-                {photo ? photo.name : "Upload Photo"}
-                <input
-                  type="file"
-                  name="photo"
-                  className="w-[100%]"
-                  accept="image/*"
-                  onChange={(e) => setPhoto(e.target.files[0])}
-                  hidden
-                />
-              </label>
-            </div>
-            <div className="mb-3">
-              {photo ? (
-                <div className="text-center">
-                  <img
-                    src={URL.createObjectURL(photo)}
-                    alt="product_photo"
-                    height={"200px"}
-                  />
-                </div>
-              ) : (
-                <div className="text-center">
-                  <img
-                    src={`${backendUrl}/product/get-product-photo/${id}`}
-                    alt="product_photo"
-                    height={"200px"}
-                    className="img img-responsive"
-                  />
-                </div>
-              )}
-            </div>
-            <div className="mb-3">
-              <input
-                type="text"
-                value={name}
-                placeholder="write a name"
-                className="bg-gray-50 mt-5 border border-gray-300  sm:text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 "
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-            <div className="mb-3">
-              <textarea
-                type="text"
-                value={description}
-                className="bg-gray-50 mt-5 border border-gray-300  sm:text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 "
-                placeholder="write a description"
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
+        <div className="my-10 w-[100%] border rounded border-gray-200">
+          <div className="w-full bg-blue-50 rounded-lg shadow shadow-green-700  md:mt-0  p-6 ">
+            <div className="space-y-2 md:space-y-4 p-4 w-full">
+              <div>
+                <Select
+                  placeholder="Select a category"
+                  size="large"
+                  showSearch
+                  className="w-full border border-[#4ADE80] rounded-lg "
+                  onChange={(value) => {
+                    setCategory(value);
+                  }}
+                  value={category}
+                >
+                  {categories?.map((c) => (
+                    <Option key={c._id} value={c._id}>
+                      {c.name}
+                    </Option>
+                  ))}
+                </Select>
+                <div className="w-[100%] mt-5 text-center  text-gray-900  cursor-pointer py-2">
+                  <label className=" text-sm ">
+                    <span className=" text-sm font-bold">
+                      {" "}
+                      {photo ? photo.name : "Upload Photo"}
+                    </span>
 
-            <div className="mb-3">
-              <input
-                type="number"
-                value={price}
-                className="bg-gray-50 mt-5 border border-gray-300  sm:text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 "
-                placeholder="write a Price"
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </div>
-            <div className="mb-3">
-              <input
-                type="number"
-                value={quantity}
-                placeholder="write a quantity"
-                className="bg-gray-50 mt-5 border border-gray-300  sm:text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 "
-                onChange={(e) => setQuantity(e.target.value)}
-              />
-            </div>
-            <div className="mb-3">
-              <Select
-                size="large"
-                showSearch
-                className="w-full"
-                onChange={(value) => {
-                  setShipping(value);
-                }}
-                value={shipping ? "Yes" : "No"}
-              >
-                <Option value="0">No</Option>
-                <Option value="1">Yes</Option>
-              </Select>
-            </div>
-            <div className="mb-3">
-              <button
-                className="bg-gray-50 mt-5 border border-gray-300 sm:text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 "
-                onClick={handleUpdate}
-              >
-                UPDATE PRODUCT
-              </button>
-            </div>
-            <div className="mb-3">
-              <button
-                className="bg-gray-50 mt-5 border border-gray-300 sm:text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 "
-                onClick={handleDelete}
-              >
-                DELETE PRODUCT
-              </button>
+                    <input
+                      type="file"
+                      name="photo"
+                      className="border border-[#4ADE80] outline-none text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
+                      accept="image/*"
+                      onChange={(e) => setPhoto(e.target.files[0])}
+                      hidden
+                    />
+                  </label>
+                </div>
+                <div className="mb-3">
+                  {photo ? (
+                    <div className="text-center">
+                      <img
+                        src={URL.createObjectURL(photo)}
+                        alt="product_photo"
+                        height={"200px"}
+                      />
+                    </div>
+                  ) : (
+                    <div className="text-center">
+                      <img
+                        src={`${backendUrl}/product/get-product-photo/${id}`}
+                        alt="product_photo"
+                        height={"200px"}
+                        className="img img-responsive"
+                      />
+                    </div>
+                  )}
+                </div>
+                <div className="mb-3">
+                  <input
+                    type="text"
+                    value={name}
+                    placeholder="write a name"
+                    className="border border-[#4ADE80] outline-none text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <textarea
+                    type="text"
+                    value={description}
+                    className="border border-[#4ADE80] outline-none text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
+                    placeholder="write a description"
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <input
+                    type="number"
+                    value={price}
+                    className="border border-[#4ADE80] outline-none text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
+                    placeholder="write a Price"
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <input
+                    type="number"
+                    value={quantity}
+                    placeholder="write a quantity"
+                    className="border border-[#4ADE80] outline-none text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
+                    onChange={(e) => setQuantity(e.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <Select
+                    size="large"
+                    showSearch
+                    className="w-full border border-[#4ADE80] rounded-lg "
+                    onChange={(value) => {
+                      setShipping(value);
+                    }}
+                    value={shipping ? "Yes" : "No"}
+                  >
+                    <Option value="0">No</Option>
+                    <Option value="1">Yes</Option>
+                  </Select>
+                </div>
+                <div className="mb-3">
+                  <button
+                    className="w-full bg-[#4ADE80] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                    onClick={handleUpdate}
+                  >
+                    UPDATE PRODUCT
+                  </button>
+                </div>
+                <div className="mb-3">
+                  <button
+                    className="w-full bg-red-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                    onClick={handleDelete}
+                  >
+                    DELETE PRODUCT
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

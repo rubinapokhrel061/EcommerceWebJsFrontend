@@ -19,196 +19,231 @@ const Home = () => {
   const navigate = useNavigate();
   const [cart, setCart] = useCart();
 
-  //get products
-
+  // Get all products
   const getAllProducts = async () => {
     try {
       setLoading(true);
       const { data } = await axios.get(
         `${backendUrl}/product/product-list/${page}`
       );
-      console.log(data);
       setProducts(data.products);
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log(error);
-      toast.error("Something Went wrong");
+      console.error("Error fetching products:", error);
+      toast.error("Something went wrong while fetching products.");
     }
   };
-  //filter by categories
+
+  // Filter by categories
   const handleFilter = (value, id) => {
-    let all = [...checked];
-    if (value) {
-      all.push(id);
-    } else {
-      all = all.filter((c) => c !== id);
-    }
-    setChecked(all);
+    setChecked((prev) => {
+      if (value) {
+        return [...prev, id];
+      } else {
+        return prev.filter((c) => c !== id);
+      }
+    });
   };
 
-  useEffect(() => {
-    if (!checked.length || !radio.length) getAllProducts();
-  }, []);
-
-  //get total count
-  const getTotal = async () => {
-    try {
-      const { data } = await axios.get(`${backendUrl}/product/count-product`);
-      setTotal(data?.total);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    if (page === 1) return;
-    loadMore();
-  }, [page]);
-  //load more
-  const loadMore = async () => {
-    try {
-      setLoading(true);
-      const { data } = await axios.get(
-        `${backendUrl}/product/product-list/${page}`
-      );
-
-      setProducts([...products, ...data?.products]);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-      toast.error("Something Went wrong");
-    }
+  // Handle price filter changes
+  const handlePriceChange = (e) => {
+    setRadio(e.target.value);
   };
 
-  // get filter product
+  // Get filtered products
   const filterProduct = async () => {
     try {
       const { data } = await axios.post(
         `${backendUrl}/product/filter-product`,
         { checked, radio }
       );
-      setProducts(data?.products);
+      if (data?.success) {
+        setProducts(data.products);
+      } else {
+        toast.error("No products found.");
+      }
     } catch (error) {
-      console.log(error);
+      console.error("Error filtering products:", error);
+      toast.error("Failed to fetch filtered products.");
     }
   };
 
   useEffect(() => {
-    if (checked.length || radio.length) filterProduct();
-  }, [checked.length, radio.length]);
-  //get all category
+    if (checked.length || radio.length) {
+      filterProduct();
+    } else {
+      getAllProducts();
+    }
+  }, [checked, radio]);
+
+  // Get total count
+  const getTotal = async () => {
+    try {
+      const { data } = await axios.get(`${backendUrl}/product/count-product`);
+      setTotal(data?.total);
+    } catch (error) {
+      console.error("Error fetching total count:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (page === 1) return;
+    loadMore();
+  }, [page]);
+
+  // Load more products
+  const loadMore = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(
+        `${backendUrl}/product/product-list/${page}`
+      );
+      setProducts((prev) => [...prev, ...data.products]);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error("Error loading more products:", error);
+      toast.error("Failed to load more products.");
+    }
+  };
+
+  // Get all categories
   const getAllCategories = async () => {
     try {
       const { data } = await axios.get(`${backendUrl}/category/all-category`);
       if (data?.success) {
-        setCategories(data?.category);
+        setCategories(data.category);
       }
-      console.log(data);
     } catch (error) {
-      console.log(error);
-      toast.error("Something Went Wrong in getting Category");
+      console.error("Error fetching categories:", error);
+      toast.error("Something went wrong while fetching categories.");
     }
   };
+
   useEffect(() => {
     getAllCategories();
     getTotal();
   }, []);
-  console.log(products);
+
+  // Add to cart
+  const addToCart = (product) => {
+    const updatedCart = cart.find((item) => item._id === product._id)
+      ? cart.map((item) =>
+          item._id === product._id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      : [...cart, { ...product, quantity: 1 }];
+
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    toast.success("Item added to cart");
+  };
+
+  // Reset filters
+  const resetFilters = () => {
+    setChecked([]);
+    setRadio([]);
+    getAllProducts(); // Fetch all products without filters
+  };
+
   return (
-    <Layout title={"Best offers "}>
-      <div className=" flex gap-10 p-3 w-[90%] mx-auto">
-        <div>
-          <div className="w-[40%]">Filter by category</div>
-          <div className="flex flex-col">
-            {categories?.map((c) => (
-              <Checkbox
-                key={c._id}
-                onChange={(e) => handleFilter(e.target.checked, c._id)}
-              >
-                {c.name}
-              </Checkbox>
-            ))}
-          </div>
-          {/* pricce filter */}
-          <div className="flex flex-col mt-4">
-            Prices
-            <Radio.Group onChange={(e) => setRadio(e.target.value)}>
-              {Prices?.map((p) => (
-                <div key={p._id}>
-                  <Radio value={p.array}>{p.name}</Radio>
-                </div>
+    <Layout>
+      <div className="min-h-screen bg-green-50">
+        <div className="w-full max-w-screen-xl mx-auto flex flex-col md:flex-row gap-4 p-4">
+          {/* Sidebar for filters */}
+          <div className="md:w-1/4 mb-4 md:mb-0">
+            <div className="text-pink-500 font-semibold mb-2">
+              Filter by category
+            </div>
+            <div className="flex flex-col space-y-2">
+              {categories?.map((c) => (
+                <Checkbox
+                  key={c._id}
+                  onChange={(e) => handleFilter(e.target.checked, c._id)}
+                >
+                  {c.name}
+                </Checkbox>
               ))}
-            </Radio.Group>
+            </div>
+            {/* Price filter */}
+            <div className="flex flex-col mt-4 text-pink-500 font-semibold">
+              Prices
+              <Radio.Group
+                onChange={handlePriceChange}
+                value={radio}
+                className="mt-2"
+              >
+                {Prices?.map((p) => (
+                  <div key={p._id}>
+                    <Radio value={p.array}>{p.name}</Radio>
+                  </div>
+                ))}
+              </Radio.Group>
+            </div>
+            <button
+              onClick={resetFilters}
+              className="bg-red-600 mt-4 py-2 px-5 rounded inline text-white"
+            >
+              RESET FILTERS
+            </button>
           </div>
 
-          <button
-            onClick={() => window.location.reload()}
-            className="bg-red-600 mt-4 p-2 rounded"
-          >
-            RESET FILTERS
-          </button>
-        </div>
-
-        <div className="mt-16">
-          <div className="flex gap-3">
-            {products?.map((p) => (
-              <div
-                className=" mb-6 rounded-lg w-80  bg-white p-6 mx-auto shadow-md "
-                key={p._id}
-              >
-                <div className="items-centers mx-auto">
-                  <img
-                    alt={p.name}
-                    src={`${backendUrl}/product/get-product-photo/${p._id}`}
-                  />
-                </div>
-
-                <div>
-                  <div className="mt-5 sm:mt-0">
+          {/* Product list */}
+          <div className="flex-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {products?.map((p) => (
+                <div
+                  className="bg-white p-4 rounded-lg shadow-md flex flex-col"
+                  key={p._id}
+                >
+                  <div className="flex justify-center mb-4">
+                    <img
+                      alt={p.name}
+                      className="w-full h-auto object-cover"
+                      src={`${backendUrl}/product/get-product-photo/${p._id}`}
+                    />
+                  </div>
+                  <div className="flex-1">
                     <h2 className="text-lg font-bold text-gray-900">
                       {p.name}
                     </h2>
-                    <p className="mt-1 text-xs text-gray-700">Rs.{p.price}</p>
-
-                    <p className="mt-1 text-xs text-gray-700">
+                    <p className="mt-1 text-sm text-gray-700">Rs.{p.price}</p>
+                    <p className="mt-1 text-sm text-gray-700">
                       {p.description.substring(0, 30)}...
                     </p>
                   </div>
+                  <div className="mt-4 flex justify-between items-center">
+                    <button
+                      onClick={() => navigate(`/product/${p.slug}`)}
+                      className="bg-red-600 text-white border border-gray-300 text-sm rounded-lg py-2 px-4"
+                    >
+                      See More
+                    </button>
+                    <button
+                      onClick={() => addToCart(p)}
+                      className="bg-green-600 text-white border border-gray-300 text-sm rounded-lg py-2 px-4"
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
-                <div className="mt-3 flex justify-between">
-                  <button
-                    onClick={() => navigate(`/product/${p.slug}`)}
-                    className="bg-gray-50  border border-gray-300 text-sm rounded-lg focus:border-blue-500 block p-1.5"
-                  >
-                    See More
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setCart([...cart, p]);
-                      toast.success("Item Added to Cart");
-                    }}
-                    className="bg-gray-50  border border-gray-300 text-sm rounded-lg focus:border-blue-500 block  p-1.5 "
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div>
-            {products && products.length < total && (
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setPage(page + 1);
-                }}
-                className="bg-gray-50  border border-gray-300 text-sm rounded-lg focus:border-blue-500 block  p-1.5 "
-              >
-                {loading ? "Loading..." : "LoadMore"}
-              </button>
-            )}
+              ))}
+            </div>
+            <div className="flex justify-center mt-4">
+              {products && products.length < total && (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setPage(page + 1);
+                  }}
+                  className="bg-gray-50 border border-gray-300 text-sm rounded-lg py-2 px-4"
+                >
+                  {loading ? "Loading..." : "Load More"}
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

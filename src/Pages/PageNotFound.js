@@ -6,7 +6,7 @@ const PageNotFound = () => {
   return (
     <>
       <Layout>
-        <div className=" text-center">
+        <div className="min-h-screen text-center">
           <h1 className="">404</h1>
           <h2 className="">Oops ! Page Not Found</h2>
           <Link to="/" className="">

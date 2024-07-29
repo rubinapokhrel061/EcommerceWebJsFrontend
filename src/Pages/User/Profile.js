@@ -53,84 +53,80 @@ const Profile = () => {
   console.log(password);
   return (
     <Layout>
-      <div className="flex gap-10 p-3 w-[90%] mx-auto">
+      <div className="flex flex-col md:flex md:flex-row md:justify-center min-h-screen gap-10 p-3 w-[90%] mx-auto">
         <div className="w-[40%]">
           <UserMenu />
         </div>
-        <div>
-          <div className="flex flex-col  items-center justify-center px-6 py-8 pb-10 mx-auto md:h-screen lg:py-0">
-            <div className="w-full bg-white rounded-lg shadow shadow-zinc-700  md:mt-0 sm:max-w-md xl:p-0 ">
-              <div className="p-6 space-y-4 md:space-y-6 sm:p-8 ">
-                <h1 className="text-xl font-bold leading-tight tracking-tight  text-gray-900 md:text-2xl ">
-                  Create an account
-                </h1>
-                <form
-                  className="space-y-4 md:space-y-6"
-                  onSubmit={handleSubmit}
+
+        <div className="w-[100%] my-10 ">
+          <div className="w-full bg-blue-50 rounded-lg shadow shadow-green-700  md:mt-0  xl:p-0 ">
+            <div className="p-6 space-y-3 md:space-y-5 sm:p-8 md:p-10 ">
+              <h1 className="text-xl font-bold leading-tight tracking-tight  text-gray-900 md:text-2xl ">
+                Create an account
+              </h1>
+              <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  id="name"
+                  onChange={(e) => setName(e.target.value)}
+                  className="border border-[#4ADE80]  outline-none text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5  "
+                  placeholder="Enter your name"
+                  required
+                />
+
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="border border-[#4ADE80]  outline-none text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
+                  placeholder="Enter your email"
+                  required
+                  disabled
+                />
+
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  className="border border-[#4ADE80]  outline-none text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  "
+                />
+
+                <input
+                  type="number"
+                  name="phone"
+                  id="phone"
+                  value={phone}
+                  placeholder="Enter your phone number"
+                  onChange={(e) => setPhone(e.target.value)}
+                  className=" border border-[#4ADE80]  outline-none text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 "
+                  required
+                />
+
+                <input
+                  type="text"
+                  name="address"
+                  id="address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  className="border border-[#4ADE80]  outline-none text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
+                  placeholder="Enter your current address"
+                  required
+                />
+
+                <button
+                  type="submit"
+                  className="w-full bg-[#4ADE80] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
-                  <input
-                    type="text"
-                    name="name"
-                    value={name}
-                    id="name"
-                    onChange={(e) => setName(e.target.value)}
-                    className="border border-[#2a2a2b] text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
-                    placeholder="Enter your name"
-                    required
-                  />
-
-                  <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="border border-[#2a2a2b] text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
-                    placeholder="Enter your email"
-                    required
-                    disabled
-                  />
-
-                  <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your password"
-                    className="border border-[#2a2a2b] text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  "
-                  />
-
-                  <input
-                    type="number"
-                    name="phone"
-                    id="phone"
-                    value={phone}
-                    placeholder="Enter your phone number"
-                    onChange={(e) => setPhone(e.target.value)}
-                    className=" border border-[#2a2a2b] text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 "
-                    required
-                  />
-
-                  <input
-                    type="text"
-                    name="address"
-                    id="address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    className="border border-[#2a2a2b] text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5 "
-                    placeholder="Enter your current address"
-                    required
-                  />
-
-                  <button
-                    type="submit"
-                    className="w-full bg-[#4c57f8] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
-                  >
-                    Update Profile
-                  </button>
-                </form>
-              </div>
+                  Update Profile
+                </button>
+              </form>
             </div>
           </div>
         </div>

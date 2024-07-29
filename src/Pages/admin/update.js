@@ -106,12 +106,12 @@ const UpdateProduct = () => {
 
   return (
     <Layout>
-      <div className="flex gap-10 p-3 w-[90%] mx-auto ">
-        <div className="w-[20%]">
+      <div className="flex flex-col md:flex md:flex-row md:justify-center gap-10  p-3 w-[90%] min-h-screen mx-auto ">
+        <div className="w-full md:w-[40%]">
           <AdminMenu />
         </div>
 
-        <div className="w-[60%] mx-auto">
+        <div className="my-10 w-[100%] border rounded border-gray-200">
           update category
           <div>
             <select

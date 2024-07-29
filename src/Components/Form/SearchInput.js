@@ -25,13 +25,9 @@ const SearchInput = () => {
     <>
       <form role="search" onClick={handleSubmit}>
         <div className="flex rounded-lg">
-          <label htmlFor="simple-search" className="sr-only">
-            Search
-          </label>
-
           <input
             type="search"
-            className="w-80 rounded-l-md  text-gray-900 text-sm  block  p-2  "
+            className="w-80 md:w-44 lg:w-80 rounded-l-md outline-none border border-blue-700 text-gray-900 text-sm  block  p-2  "
             placeholder="Search"
             value={values.keyword}
             onChange={(e) => setValues({ ...values, keyword: e.target.value })}
