@@ -9,7 +9,9 @@ const PrivateRoute = () => {
   const [auth] = useAuth();
   useEffect(() => {
     const authcheck = async () => {
-      const res = await axios.get("http://localhost:5000/auth/userauth");
+      const res = await axios.get(
+        "https://digitalshop-n2jx.onrender.com/auth/userauth"
+      );
       if (res.data.ok) {
         setOk(true);
       } else {

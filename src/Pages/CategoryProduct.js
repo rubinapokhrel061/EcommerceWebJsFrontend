@@ -29,7 +29,7 @@ const CategoryProduct = () => {
     <Layout>
       <div className="min-h-screen">
         {/* <h1>{category?.name}</h1> */}
-        <div className="flex flex-wrap gap-3 py-10">
+        <div className="flex justify-center gap-3 py-10">
           {products?.map((p) => (
             <div
               className=" mb-6 rounded-lg w-80  bg-white p-6 mx-auto shadow-md "

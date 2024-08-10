@@ -26,14 +26,17 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/auth/register", {
-        name: userData.name,
-        email: userData.email,
-        password: userData.password,
-        phone: userData.phone,
-        address: userData.address,
-        answer: userData.answer,
-      });
+      const res = await axios.post(
+        "https://digitalshop-n2jx.onrender.com/auth/register",
+        {
+          name: userData.name,
+          email: userData.email,
+          password: userData.password,
+          phone: userData.phone,
+          address: userData.address,
+          answer: userData.answer,
+        }
+      );
       if (res && res.data.success) {
         toast.success(res.data && res.data.success);
         navigate("/login");

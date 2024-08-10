@@ -7,21 +7,21 @@ const Footer = () => {
       <h3>All Right Reserved &copy</h3>
       <div className=" flex gap-3 justify-center">
         <Link
-          to="/about"
+          to=""
           className=" focus:boder  focus:border-b-2 focus:border-blue-800 font-bold hover:text-blue-800 focus:text-blue-800"
         >
           About
         </Link>
         |
         <Link
-          to="/contact"
+          to=""
           className=" focus:boder focus:border-b-2 focus:border-blue-800 font-bold hover:text-blue-800 focus:text-blue-800"
         >
           Contact
         </Link>
         |
         <Link
-          to="/policy"
+          to=""
           className=" focus:boder focus:border-b-2 focus:border-blue-800 font-bold hover:text-blue-800 focus:text-blue-800"
         >
           Privacy Policy

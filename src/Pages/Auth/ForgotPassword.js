@@ -25,7 +25,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:5000/auth/forgot-password",
+        "https://digitalshop-n2jx.onrender.com/auth/forgot-password",
         {
           email: userData.email,
           answer: userData.answer,

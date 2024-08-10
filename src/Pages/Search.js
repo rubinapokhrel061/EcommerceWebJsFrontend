@@ -2,9 +2,28 @@ import React from "react";
 import Layout from "../Components/layout/Layout";
 import { useSearch } from "../Context/SearchContext";
 import { backendUrl } from "./config";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../Context/Cart";
+import toast from "react-hot-toast";
 
 const Search = () => {
   const [value] = useSearch();
+  const navigate = useNavigate();
+  const [cart, setCart] = useCart();
+
+  const addToCart = (product) => {
+    const updatedCart = cart.find((item) => item._id === product._id)
+      ? cart.map((item) =>
+          item._id === product._id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      : [...cart, { ...product, quantity: 1 }];
+
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    toast.success("Item added to cart");
+  };
   return (
     <Layout>
       <div className="min-h-screen">
@@ -38,12 +57,17 @@ const Search = () => {
                   </p>
                 </div>
               </div>
-              <div className="mt-3 flex justify-between">
-                <button className="bg-gray-50  border border-gray-300 text-sm rounded-lg focus:border-blue-500 block p-1.5">
+              <div className="mt-4 flex justify-between items-center">
+                <button
+                  onClick={() => navigate(`/product/${p.slug}`)}
+                  className="bg-red-600 text-white border border-gray-300 text-sm rounded-lg py-2 px-4"
+                >
                   See More
                 </button>
-
-                <button className="bg-gray-50  border border-gray-300 text-sm rounded-lg focus:border-blue-500 block  p-1.5 ">
+                <button
+                  onClick={() => addToCart(p)}
+                  className="bg-green-600 text-white border border-gray-300 text-sm rounded-lg py-2 px-4"
+                >
                   Add to Cart
                 </button>
               </div>
