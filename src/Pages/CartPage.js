@@ -235,7 +235,7 @@ const CartPage = () => {
       <div className="min-h-screen">
         <div className="text-center">
           {/* <h1>{auth?.token && auth?.user?.name}</h1> */}
-          <h4 className="text-pink-700 font-bold pt-10 mb-4">
+          <h4 className="text-pink-700 text-sm font-bold pt-10 mb-4">
             {cart?.length
               ? `You Have ${cart.length} item(s) in your cart ${
                   auth?.token ? "" : "please login to checkout"
@@ -243,8 +243,8 @@ const CartPage = () => {
               : "Your Cart Is Empty"}
           </h4>
         </div>
-        <div className="flex justify-center gap-5 py-4 px-6">
-          <div className="flex flex-wrap gap-5">
+        <div className="flex flex-col md:flex md:flex-row justify-center gap-5 py-4 px-6">
+          <div className="flex flex-wrap justify-center gap-5">
             {cart?.map((p) => (
               <div
                 key={p._id}

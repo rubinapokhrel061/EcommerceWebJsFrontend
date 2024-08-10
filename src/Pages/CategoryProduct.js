@@ -3,6 +3,8 @@ import Layout from "../Components/layout/Layout";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { backendUrl } from "./config";
+import { useCart } from "../Context/Cart";
+import toast from "react-hot-toast";
 
 const CategoryProduct = () => {
   const params = useParams();
@@ -25,11 +27,27 @@ const CategoryProduct = () => {
     }
   };
 
+  const [cart, setCart] = useCart();
+
+  const addToCart = (product) => {
+    const updatedCart = cart.find((item) => item._id === product._id)
+      ? cart.map((item) =>
+          item._id === product._id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      : [...cart, { ...product, quantity: 1 }];
+
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    toast.success("Item added to cart");
+  };
+
   return (
     <Layout>
       <div className="min-h-screen">
         {/* <h1>{category?.name}</h1> */}
-        <div className="flex justify-center gap-3 py-10">
+        <div className="flex justify-center flex-wrap gap-3 py-10">
           {products?.map((p) => (
             <div
               className=" mb-6 rounded-lg w-80  bg-white p-6 mx-auto shadow-md "
@@ -60,7 +78,10 @@ const CategoryProduct = () => {
                   See More
                 </button>
 
-                <button className="w-full bg-[#4ADE80] font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                <button
+                  onClick={() => addToCart(p)}
+                  className="w-full bg-[#4ADE80] font-medium rounded-lg text-sm px-5 py-2.5 text-center "
+                >
                   Add to Cart
                 </button>
               </div>
