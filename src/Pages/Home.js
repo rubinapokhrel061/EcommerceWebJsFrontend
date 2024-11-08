@@ -150,102 +150,125 @@ const Home = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-green-50">
-        <div className="w-full max-w-screen-xl mx-auto flex flex-col md:flex-row gap-4 p-4">
-          {/* Sidebar for filters */}
-          <div className="md:w-1/4 mb-4 md:mb-0">
-            <div className="text-pink-500 font-semibold mb-2">
-              Filter by category
-            </div>
-            <div className="flex flex-col space-y-2">
-              {categories?.map((c) => (
-                <Checkbox
-                  key={c._id}
-                  onChange={(e) => handleFilter(e.target.checked, c._id)}
-                >
-                  {c.name}
-                </Checkbox>
-              ))}
-            </div>
-            {/* Price filter */}
-            <div className="flex flex-col mt-4 text-pink-500 font-semibold">
-              Prices
-              <Radio.Group
-                onChange={handlePriceChange}
-                value={radio}
-                className="mt-2"
-              >
-                {Prices?.map((p) => (
-                  <div key={p._id}>
-                    <Radio value={p.array}>{p.name}</Radio>
-                  </div>
-                ))}
-              </Radio.Group>
-            </div>
-            <button
-              onClick={resetFilters}
-              className="bg-red-600 mt-4 py-2 px-5 rounded inline text-white"
-            >
-              RESET FILTERS
-            </button>
-          </div>
-
-          {/* Product list */}
-          <div className="flex-1">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {products?.map((p) => (
-                <div
-                  className="bg-white p-4 rounded-lg shadow-md flex flex-col"
-                  key={p._id}
-                >
-                  <div className="flex justify-center mb-4">
-                    <img
-                      alt={p.name}
-                      className="w-full h-auto object-cover"
-                      src={`${backendUrl}/product/get-product-photo/${p._id}`}
-                    />
-                  </div>
-                  <div className="flex-1">
-                    <h2 className="text-lg font-bold text-gray-900">
-                      {p.name}
-                    </h2>
-                    <p className="mt-1 text-sm text-gray-700">Rs.{p.price}</p>
-                    <p className="mt-1 text-sm text-gray-700">
-                      {p.description.substring(0, 30)}...
-                    </p>
-                  </div>
-                  <div className="mt-4 flex justify-between items-center">
-                    <button
-                      onClick={() => navigate(`/product/${p.slug}`)}
-                      className="bg-red-600 text-white border border-gray-300 text-sm rounded-lg py-2 px-4"
-                    >
-                      See More
-                    </button>
-                    <button
-                      onClick={() => addToCart(p)}
-                      className="bg-green-600 text-white border border-gray-300 text-sm rounded-lg py-2 px-4"
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-center mt-4">
-              {products && products.length < total && (
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setPage(page + 1);
-                  }}
-                  className="bg-gray-50 border border-gray-300 text-sm rounded-lg py-2 px-4"
-                >
-                  {loading ? "Loading..." : "Load More"}
-                </button>
-              )}
-            </div>
-          </div>
+      <div className="min-h-screen bg-sky-200">
+        <div>
+          <img
+            className="w-full object-cover h-[80vh] "
+            src="/heroimg.png"
+          ></img>
         </div>
+        <div>
+          <h1 className="text-center pt-14 pb-10 underline text-xl font-extrabold">
+            Top products
+          </h1>
+        </div>
+        {products.length > 0 ? (
+          <>
+            <div className="w-full max-w-screen-xl min-h-screen mx-auto flex flex-col md:flex-row gap-4 p-4">
+              {/* Sidebar for filters */}
+              <div className="md:w-1/4 mb-4 md:mb-0">
+                <div className="text-pink-500 font-semibold mb-2">
+                  Filter by category
+                </div>
+                <div className="flex flex-col space-y-2">
+                  {categories?.map((c) => (
+                    <Checkbox
+                      key={c._id}
+                      onChange={(e) => handleFilter(e.target.checked, c._id)}
+                    >
+                      {c.name}
+                    </Checkbox>
+                  ))}
+                </div>
+                {/* Price filter */}
+                <div className="flex flex-col mt-4 text-pink-500 font-semibold">
+                  Prices
+                  <Radio.Group
+                    onChange={handlePriceChange}
+                    value={radio}
+                    className="mt-2"
+                  >
+                    {Prices?.map((p) => (
+                      <div key={p._id}>
+                        <Radio value={p.array}>{p.name}</Radio>
+                      </div>
+                    ))}
+                  </Radio.Group>
+                </div>
+                <button
+                  onClick={resetFilters}
+                  className="bg-red-600 mt-4 py-2 px-5 rounded inline text-white"
+                >
+                  RESET FILTERS
+                </button>
+              </div>
+
+              {/* Product list */}
+              <div className="flex-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {products?.map((p) => (
+                    <div
+                      className="bg-white p-4 rounded-lg shadow-md flex flex-col"
+                      key={p._id}
+                    >
+                      <div className="flex justify-center mb-4">
+                        <img
+                          alt={p.name}
+                          className="w-full h-auto object-cover"
+                          src={`${backendUrl}/product/get-product-photo/${p._id}`}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <h2 className="text-lg font-bold text-gray-900">
+                          {p.name}
+                        </h2>
+                        <p className="mt-1 text-sm text-gray-700">
+                          Rs.{p.price}
+                        </p>
+                        <p className="mt-1 text-sm text-gray-700">
+                          {p.description.substring(0, 30)}...
+                        </p>
+                      </div>
+                      <div className="mt-4 flex justify-between items-center">
+                        <button
+                          onClick={() => navigate(`/product/${p.slug}`)}
+                          className="bg-red-600 text-white border border-gray-300 text-sm rounded-lg py-2 px-4"
+                        >
+                          See More
+                        </button>
+                        <button
+                          onClick={() => addToCart(p)}
+                          className="bg-green-600 text-white border border-gray-300 text-sm rounded-lg py-2 px-4"
+                        >
+                          Add to Cart
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-center mt-4">
+                  {products && products.length < total && (
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setPage(page + 1);
+                      }}
+                      className="bg-gray-50 border border-gray-300 text-sm rounded-lg py-2 px-4"
+                    >
+                      {loading ? "Loading..." : "Load More"}
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="text-center items-center pb-8">
+              No Products found.
+            </div>
+          </>
+        )}
       </div>
     </Layout>
   );
